@@ -1,0 +1,13 @@
+{
+  "name": "gist-id",
+  "version": "2019.4.23",
+  "description": "github gist generator",
+  "keywords": [
+    "gist"
+  ],
+  "homepage": "https://github.com/looking-for-a-job/gist-id",
+  "license": "Unlicense",
+  "bin": {
+    "gist-id": "./scripts/gist-id"
+  }
+}

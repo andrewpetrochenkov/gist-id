@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+{ set +x; } 2>/dev/null
+
+usage() {
+    echo "usage: $(basename $0) path" 1>&2
+    [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; exit
+}
+
+[[ $1 == "-h" ]] || [[ $1 == "--help" ]] && usage "$@"
+
+[[ $# != 1 ]] && usage
+
+cd "$1" || exit
+! [ -e .git ] && exit
+! [ -e .git/config ] && exit
+url="$(git remote -v | grep gist.github.com | head -1 | awk '{print $2}')"
+[[ -z "$url" ]] && exit
+
+# https://gist.github.com/<id>.git
+[[ "$url" == "https"* ]] && echo "$url" | awk -F":" '{print $2}' | sed 's/.\{4\}$//' && exit
+
+# git@gist.github.com:<id>.git
+[[ "$url" == "git@"* ]] && echo "$url" | awk -F":" '{print $2}' | sed 's/.\{4\}$//' && exit
+echo "ERROR: $url" 1>&2 && exit 1
