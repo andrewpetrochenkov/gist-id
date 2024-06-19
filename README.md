@@ -1,4 +1,4 @@
-<!--
+<!--$ [sudo] npm i -g gist-id
 https://readme42.com
 -->
 
